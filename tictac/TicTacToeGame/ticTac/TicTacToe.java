@@ -1,4 +1,7 @@
+package ticTac;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,13 +13,13 @@ public class TicTacToe {
 	static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
 	static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
 	
-public static void main(String[] args) {
+	public static void main(String[] args) {
 		
-		char[] [] gameBoard = {{' ',' ', '|',' ', ' ', '|',' ', ' '}, 
-				{'-', '-','+', '-','-', '+', '-','-'}, 
-				{' ',' ', '|', ' ',' ', '|', ' ',' '}, 
-				{'-','-', '+', '-','-', '+', '-','-'}, 
-				{' ',' ', '|', ' ',' ', '|', ' ',' '}};
+		char[] [] gameBoard = {{' ', '|', ' ', '|', ' '}, 
+				{ '-','+', '-', '+','-'}, 
+				{' ', '|',' ', '|',' '}, 
+				{'-', '+', '-', '+','-'}, 
+				{' ', '|',' ', '|',' '}};
 		
 		
 		printGameBoard(gameBoard);
@@ -24,7 +27,6 @@ public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter your placement (1-9): ");
 		int playerPos = scanner.nextInt();
 		while(playerPositions.contains(playerPos) || cpuPositions.contains(playerPos)) {
@@ -32,7 +34,6 @@ public static void main(String[] args) {
 			playerPos =scanner.nextInt();
 		}
 		
-		System.out.println(pos);
 		
 		placepeice(gameBoard, playerPos, "player");
 		
@@ -57,7 +58,7 @@ public static void main(String[] args) {
 		System.out.println(result);
 		break;
 		}
-		}
+	}
 		
 	}
 public static void printGameBoard(char[] [] gameBoard) {
@@ -85,31 +86,31 @@ public static void placepeice(char[][] gameboard, int pos, String user) {
 	
 	switch (pos) {
 	case 1:
-		gameBoard[0][0] = symbol;
+		gameboard[0][0] = symbol;
 		break;
 	case 2:
-		gameBoard[0][3] = symbol;
+		gameboard[0][2] = symbol;
 		break;
 	case 3:
-		gameBoard[0][6] = symbol;
+		gameboard[0][4] = symbol;
 		break;
 	case 4:
-		gameBoard[2][0] = symbol;
+		gameboard[2][0] = symbol;
 		break;
 	case 5:
-		gameBoard[2][3] = symbol;
+		gameboard[2][2] = symbol;
 		break;
 	case 6:
-		gameBoard[2][6] = symbol;
+		gameboard[2][4] = symbol;
 		break;
 	case 7:
-		gameBoard[4][0] = symbol;
+		gameboard[4][0] = symbol;
 		break;
 	case 8:
-		gameBoard[4][3] = symbol;
+		gameboard[4][2] = symbol;
 		break;
 	case 9:
-		gameBoard[4][6] = symbol;
+		gameboard[4][4] = symbol;
 		break;
 		default:
 			break;
@@ -117,17 +118,18 @@ public static void placepeice(char[][] gameboard, int pos, String user) {
 	
 }
 
+
 public static String checkWinner() {
-	
-	List topRowList = Array.asList(1, 2, 3);
-	List middleRow = Array.asList(4, 5, 6);
-	List bottomRow = Array.asList(7, 8, 9);
-	List leftCol = Array.asList(1, 4, 7);
-	List middleCol = Array.asList(2, 5, 8);
-	List rightCol = Array.asList(3, 8, 9);
-	List cross1 = Array.asList(1, 5, 9);
-	List cross2 = Array.asList(7, 5, 3);
-	
+
+	List<Integer> topRow = Arrays.asList(1, 2, 3);
+	List<Integer> middleRow = Arrays.asList(4, 5, 6);
+	List<Integer> bottomRow = Arrays.asList(7, 8, 9);
+	List<Integer> leftCol = Arrays.asList(1, 4, 7);
+	List<Integer> middleCol = Arrays.asList(2, 5, 8);
+	List<Integer> rightCol = Arrays.asList(3, 8, 9);
+	List<Integer> cross1 = Arrays.asList(1, 5, 9);
+	List<Integer> cross2 = Arrays.asList(7, 5, 3);
+
 	List<List> winningConditions = new ArrayList<List>();
 
 	winningConditions.add(topRow);
@@ -138,20 +140,23 @@ public static String checkWinner() {
 	winningConditions.add(rightCol);
 	winningConditions.add(cross1);
 	winningConditions.add(cross2);
+
+	
+	
+	String result = "";
 	
 	for(List l: winningConditions) {
-		String result = "it's a tie!";
-		if(playerPositions.containsAll(l))
+		if(playerPositions.containsAll(l)) {
 			result = "Congratulations you won!";
 	}else if(cpuPositions.containsAll(l)) {
 		result =  "Sorry, you lost!";
 	}else if(playerPositions.size() + cpuPositions.size() == 9) {
-		result = "it's a tie!"
+		result = "it's a tie!";
 	}
 	
 	
+	
+}
 	return result;
 }
-
-
 }
